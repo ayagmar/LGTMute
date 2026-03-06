@@ -1,5 +1,7 @@
 import contentCss from "../content/content.css";
 import { bootstrapContent } from "../content/app";
+import panelCss from "./panel.css";
+import { mountUserscriptPanel } from "./panel";
 import { userscriptStorage } from "./storage";
 
 const STYLE_ID = "lgtmute-userscript-style";
@@ -12,7 +14,7 @@ function injectStyles(): void {
 
   const style = document.createElement("style");
   style.id = STYLE_ID;
-  style.textContent = contentCss;
+  style.textContent = `${contentCss}\n${panelCss}`;
   document.head.append(style);
 }
 
@@ -26,6 +28,7 @@ async function start(): Promise<void> {
 
   target[LOADED_FLAG] = true;
   injectStyles();
+  mountUserscriptPanel(userscriptStorage);
   await bootstrapContent(userscriptStorage);
 }
 

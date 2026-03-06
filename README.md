@@ -18,7 +18,7 @@ It is intentionally local-only:
 - Shows one action entry per author on the first detected comment and skips your own logged-in account.
 - Persists rules across sessions.
 - Extension build: includes a popup shortcut plus a dedicated options/control panel for site-wide mutes, repo mutes, hidden comments, and hidden threads.
-- Userscript build: includes the in-page hide/mute controls only. It does not include the popup or options/control panel.
+- Userscript build: includes the in-page hide/mute controls plus an in-page control panel overlay for stats, enable/disable, and rule management. It does not include the browser popup or extension options page.
 
 ## Build
 
@@ -48,6 +48,7 @@ This packaged extension target is for Chrome/Chromium browsers.
 2. Install a userscript manager such as Violentmonkey or Tampermonkey.
 3. Create a new script and paste the contents of `dist/lgtmute.user.js`, or import that file directly.
 4. Open any `https://github.com/*` issue or pull request page.
+5. Use the floating `LGTMute` button, or press `Alt+Shift+M`, to open the userscript control panel overlay.
 
 The userscript is the cross-browser path and is intended to work in Firefox and Chrome-family browsers.
 

@@ -3,6 +3,7 @@ import { getHideReason } from "../shared/rules";
 import type { StorageApi } from "../shared/storage-core";
 import type { HideReason, PersistedState } from "../shared/types";
 import { pickControlRoots } from "./control-policy";
+import { shouldShowHideThreadAction } from "./menu-policy";
 import { shouldScheduleScan } from "./mutation-policy";
 import {
   findObserverRoots,
@@ -134,13 +135,21 @@ export async function bootstrapContent(storage: StorageApi): Promise<void> {
     menu.dataset.buttonId = button.id;
     menu.setAttribute(OWNED_ATTRIBUTE, "menu");
     document.body.append(menu);
-    menu.append(
+    const actions = [
       createMenuAction(`Hide ${target.descriptor.label}`, () =>
         storage.hideComment(target.descriptor.commentKey),
       ),
-      createMenuAction("Hide thread", () =>
-        storage.hideThread(target.descriptor.threadKey),
-      ),
+    ];
+
+    if (shouldShowHideThreadAction(target.descriptor)) {
+      actions.push(
+        createMenuAction("Hide thread", () =>
+          storage.hideThread(target.descriptor.threadKey),
+        ),
+      );
+    }
+
+    actions.push(
       createMenuAction(`Mute @${target.descriptor.author} in this repo`, () =>
         storage.muteAuthor(
           target.descriptor.author,
@@ -156,6 +165,8 @@ export async function bootstrapContent(storage: StorageApi): Promise<void> {
         ),
       ),
     );
+
+    menu.append(...actions);
 
     button.addEventListener("click", (event) => {
       event.preventDefault();

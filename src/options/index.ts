@@ -1,3 +1,8 @@
+import {
+  formatScopedKey,
+  getPageMeta,
+  type SectionKey,
+} from "../shared/control-panel";
 import { getStats } from "../shared/rules";
 import {
   clearAll,
@@ -9,14 +14,6 @@ import {
   setEnabled,
 } from "../shared/storage";
 import type { PersistedState } from "../shared/types";
-
-const PAGE_SIZE = 25;
-
-type SectionKey =
-  | "siteAuthors"
-  | "repoAuthors"
-  | "hiddenComments"
-  | "hiddenThreads";
 
 const enabledToggle =
   document.querySelector<HTMLInputElement>("#enabled-toggle");
@@ -101,37 +98,6 @@ function createListRow(options: {
   return item;
 }
 
-function formatScopedKey(
-  key: string,
-  prefix: "comment:" | "thread:",
-): { title: string; subtitle: string } {
-  const normalizedKey = key.startsWith(prefix) ? key.slice(prefix.length) : key;
-  const [page, fragment] = normalizedKey.split("#");
-
-  return {
-    title: fragment ?? normalizedKey,
-    subtitle: page ?? normalizedKey,
-  };
-}
-
-function getPageMeta(
-  section: SectionKey,
-  totalItems: number,
-): {
-  page: number;
-  totalPages: number;
-  start: number;
-  end: number;
-} {
-  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
-  currentPages[section] = Math.min(currentPages[section], totalPages);
-  currentPages[section] = Math.max(currentPages[section], 1);
-  const page = currentPages[section];
-  const start = (page - 1) * PAGE_SIZE;
-  const end = start + PAGE_SIZE;
-  return { page, totalPages, start, end };
-}
-
 function renderPagination(
   container: HTMLElement | null,
   section: SectionKey,
@@ -141,7 +107,11 @@ function renderPagination(
     return;
   }
 
-  const { page, totalPages, start, end } = getPageMeta(section, totalItems);
+  const { page, totalPages, start, end } = getPageMeta(
+    currentPages[section],
+    totalItems,
+  );
+  currentPages[section] = page;
   if (totalItems === 0 || totalPages === 1) {
     container.replaceChildren();
     return;
@@ -192,7 +162,11 @@ function renderSection<T>(options: {
     return;
   }
 
-  const { start, end } = getPageMeta(options.section, options.items.length);
+  const { page, start, end } = getPageMeta(
+    currentPages[options.section],
+    options.items.length,
+  );
+  currentPages[options.section] = page;
   const pageItems = options.items.slice(start, end).map(options.renderRow);
   options.container.replaceChildren(...pageItems);
   renderPagination(options.pagination, options.section, options.items.length);
