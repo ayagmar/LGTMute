@@ -1,5 +1,7 @@
 # LGTMute
 
+<img width="1195" height="1220" alt="image" src="https://github.com/user-attachments/assets/4d845d69-b405-46b4-b740-77a745231891" />
+
 LGTMute is a lightweight GitHub noise filter available both as a Chrome extension and as a standalone userscript. It adds quick controls to hide noisy posts, replies, threads, and authors from your own view.
 
 It is intentionally local-only:
