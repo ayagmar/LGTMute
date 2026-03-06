@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LGTMute Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="hero__copy">
+          <span class="eyebrow">LGTMute</span>
+          <h1>Quiet GitHub without touching GitHub itself.</h1>
+          <p>
+            Rules live in Chrome sync storage, stay lightweight, and only affect
+            what you see.
+          </p>
+        </div>
+
+        <label class="toggle-card" for="enabled-toggle">
+          <span>
+            <strong>Extension enabled</strong>
+            <small
+              >Inject actions on comment headers and apply saved rules.</small
+            >
+          </span>
+          <span class="toggle">
+            <input id="enabled-toggle" type="checkbox" />
+            <span class="toggle__track"></span>
+          </span>
+        </label>
+      </section>
+
+      <section class="stats">
+        <article class="stat-card">
+          <span class="stat-card__value" id="stat-mute-rules">0</span>
+          <span class="stat-card__label">Mute rules</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-card__value" id="stat-hidden-comments">0</span>
+          <span class="stat-card__label">Hidden comments</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-card__value" id="stat-hidden-threads">0</span>
+          <span class="stat-card__label">Hidden threads</span>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <header class="panel__header">
+            <h2>Muted Across GitHub</h2>
+            <p>Authors hidden on every GitHub page you open.</p>
+          </header>
+          <ul id="site-authors-list" class="list"></ul>
+          <div id="site-authors-pagination" class="pagination"></div>
+        </article>
+
+        <article class="panel">
+          <header class="panel__header">
+            <h2>Muted Per Repository</h2>
+            <p>Scoped author rules keyed by `owner/repo`.</p>
+          </header>
+          <ul id="repo-authors-list" class="list"></ul>
+          <div id="repo-authors-pagination" class="pagination"></div>
+        </article>
+
+        <article class="panel">
+          <header class="panel__header">
+            <h2>Hidden Comments</h2>
+            <p>Single posts or replies hidden on a specific page.</p>
+          </header>
+          <ul id="hidden-comments-list" class="list"></ul>
+          <div id="hidden-comments-pagination" class="pagination"></div>
+        </article>
+
+        <article class="panel">
+          <header class="panel__header">
+            <h2>Hidden Threads</h2>
+            <p>Entire conversation groups hidden from view.</p>
+          </header>
+          <ul id="hidden-threads-list" class="list"></ul>
+          <div id="hidden-threads-pagination" class="pagination"></div>
+        </article>
+      </section>
+
+      <section class="footer">
+        <p>
+          LGTMute is local-only. It never mutates GitHub account settings or
+          posts requests on your behalf.
+        </p>
+        <button id="clear-all" class="danger-button" type="button">
+          Clear every rule
+        </button>
+      </section>
+    </main>
+
+    <script src="options.js"></script>
+  </body>
+</html>

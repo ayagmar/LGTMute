@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LGTMute</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <section class="hero">
+        <div class="hero__badge">GitHub Noise Control</div>
+        <h1>LGTMute</h1>
+        <p id="status-text">LGTMute is active on GitHub.</p>
+      </section>
+
+      <section class="panel">
+        <label class="toggle-row" for="enabled-toggle">
+          <span>
+            <strong>Extension status</strong>
+            <small
+              >Inject controls only when needed and keep the page fast.</small
+            >
+          </span>
+          <span class="toggle">
+            <input id="enabled-toggle" type="checkbox" />
+            <span class="toggle__track"></span>
+          </span>
+        </label>
+
+        <div id="stats-grid" class="stats-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="panel panel--subtle">
+        <p>
+          Local-only filtering. No GitHub settings are changed on your account.
+        </p>
+        <button id="open-options" class="secondary-button" type="button">
+          Open control panel
+        </button>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

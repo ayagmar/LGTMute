@@ -1,0 +1,29 @@
+{
+  "name": "lgtmute",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A lightweight Chrome extension that hides noisy GitHub posts, replies, threads, and authors.",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "clean": "node -e \"import('node:fs').then(({rmSync}) => rmSync('dist', { recursive: true, force: true }))\"",
+    "dev": "node ./scripts/build.mjs --watch",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.1.37",
+    "@types/jsdom": "28.0.0",
+    "@types/node": "25.3.5",
+    "esbuild": "0.27.3",
+    "jsdom": "28.1.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.18"
+  }
+}

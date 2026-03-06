@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "LGTMute",
+  "version": "0.1.0",
+  "description": "Hide noisy GitHub comments, threads, and authors with fast local controls.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://github.com/*"],
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "LGTMute",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
